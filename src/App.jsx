@@ -1,14 +1,15 @@
 import React from "react";
+import SandBox from "./components/sand-box";
 import "./App.css";
 
 function App() {
   return (
     <div className="wrapper">
-      <div class="left">导航栏</div>
-      <div class="content">
-        {/* <iframe id="child" src="http://172.18.213.40:9000"></iframe> */}
+      <div className="left">导航栏</div>
+      <div className="content">
+        <SandBox id="sand-box" src="http://192.168.31.116:9000" />
       </div>
-      <div class="right">帮助栏</div>
+      <div className="right">帮助栏</div>
     </div>
   );
 }
