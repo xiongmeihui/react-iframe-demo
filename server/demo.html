@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>inner html</title>
     <style type="text/css">
+      body {
+        margin: 0;
+      }
+
       #message {
         display: flex;
         justify-content: center;
@@ -22,17 +26,13 @@
       内嵌元素
     </div>
     <script>
-      console.log(1)
       window.addEventListener(
         "message",
         function (event) {
           console.log(event);
-          document.getElementById("message").innerHTML =
-            "收到" + event.origin + "消息：" + event.data;
         },
         false
       );
-      console.log(2)
     </script>
   </body>
 </html>
