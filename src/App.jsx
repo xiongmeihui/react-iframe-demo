@@ -7,7 +7,7 @@ function App() {
     <div className="wrapper">
       <div className="left">导航栏</div>
       <div className="content">
-        <SandBox id="sand-box" src="http://192.168.31.128:9000" />
+        <SandBox id="sand-box" src="http://172.18.213.40:9000" />
       </div>
       <div className="right">帮助栏</div>
     </div>

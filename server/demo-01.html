@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="message">
+      内嵌元素
+    </div>
+    <div id="box"></div>
+    <script>
+      parent.postMessage({ hasLoadedYunScript: true }, "http://localhost:3000");
+
+      const loadScript = function (src) {
+        const script = document.createElement("script");
+        script.src = src;
+        return script;
+      };
+
+      window.onload = function () {
+        console.log("loaded");
+        document.head.appendChild(
+          loadScript(
+            "https://file.yzcdn.cn/upload_files/yz-file/2020/07/14/Fq9k97WqTDogDCNamzqm7o7-ARup.js"
+          )
+        );
+      };
+
+      window.addEventListener("inject_user_info", function (e) {
+        console.log(e);
+      });
+
+      // 收到来自宿主页面的消息
+      window.addEventListener(
+        "message",
+        function (event) {
+          const message = document.getElementById("message");
+          const { userId, userName } = event.data;
+          
+          // 自定义事件
+          const injectUserInfoEvent = new CustomEvent("inject_user_info", {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+              userId,
+              userName,
+            },
+          });
+          window.dispatchEvent(injectUserInfoEvent);
+
+          message.innerHTML = "容器环境：收到来自宿主的信息" + event.origin;
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

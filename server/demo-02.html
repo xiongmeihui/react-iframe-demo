@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="message">
+      内嵌元素
+    </div>
+    <div id="box"></div>
+    <script>
+      // 加类型参数
+      // 加个三方开发者的身份校验
+      // 一次性的token
+      parent.postMessage(
+        { pageType: "THIRD_PARTY_APP" },
+        "http://localhost:3000"
+      );
+      console.log(parent);
+      const loadScript = function (src) {
+        const script = document.createElement("script");
+        script.src = src;
+        return script;
+      };
+
+      // 收到来自宿主页面的消息
+      window.addEventListener(
+        "message",
+        function (event) {
+          const message = document.getElementById("message");
+          const { userId, userName } = event.data;
+          window.userInfo = { userId, userName };
+
+          document.head.appendChild(
+            loadScript(
+              "https://file.yzcdn.cn/upload_files/yz-file/2020/07/14/Fq9k97WqTDogDCNamzqm7o7-ARup.js"
+            )
+          );
+
+          message.innerHTML = "容器环境：收到来自宿主的信息" + event.origin;
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

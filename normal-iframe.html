@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      iframe {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+    <script>
+      function logIframe() {
+        var iframe = document.getElementById("box");
+        console.log(iframe.contentWindow.document.readyState);
+      }
+      document.onreadystatechange = function () {
+        // logIframe();
+        // console.log(document.readyState);
+      };
+      window.onload = function () {
+        // logIframe();
+        // console.log("loaded");
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // logIframe();
+        // console.log("DOMContentLoaded");
+      });
+    </script>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <script>
+      function receiveMessageFromIframePage(event) {
+        console.log("收到来自iframe的信息", event);
+        console.log(event.data.hasLoadedYunScript);
+
+        // const { hasLoadedYunScript } = event.data;
+        // const { contentWindow: innerWindow } = document.getElementById("box");
+        // if (hasLoadedYunScript) {
+        //   innerWindow.postMessage(
+        //     { userId: 10000, userName: "YOUZANYUN" },
+        //     "http://172.18.213.40:9000"
+        //   );
+        // }
+      }
+      window.addEventListener("message", receiveMessageFromIframePage, false);
+    </script>
+    <iframe
+      id="box"
+      sandbox="allow-scripts allow-same-origin"
+      src="http://172.18.213.40:9000"
+    ></iframe>
+  </body>
+</html>
