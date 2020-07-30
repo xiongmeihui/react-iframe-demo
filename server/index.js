@@ -1,8 +1,13 @@
-const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 
-const server = http.createServer();
+const options = {
+  key: fs.readFileSync(path.join(__dirname, "./ca/key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "./ca/cert.pem")),
+};
+
+const server = https.createServer(options);
 
 server.listen(9000, function () {
   console.log("http server is listening at port 9000");

@@ -11,14 +11,10 @@
     </div>
     <div id="box"></div>
     <script>
-      // 加类型参数
-      // 加个三方开发者的身份校验
-      // 一次性的token
       parent.postMessage(
         { pageType: "THIRD_PARTY_APP" },
-        "http://localhost:3000"
+        "*"
       );
-      console.log(parent);
       const loadScript = function (src) {
         const script = document.createElement("script");
         script.src = src;
@@ -30,8 +26,9 @@
         "message",
         function (event) {
           const message = document.getElementById("message");
-          const { userId, userName } = event.data;
-          window.userInfo = { userId, userName };
+          const { userToken } = event.data;
+          console.log(userToken)
+          window.userToken = userToken;
 
           document.head.appendChild(
             loadScript(
