@@ -45,24 +45,22 @@
     <![endif]-->
     <script>
       function receiveMessageFromIframePage(event) {
-        console.log("收到来自iframe的信息", event);
-        console.log(event.data.hasLoadedYunScript);
-
-        // const { hasLoadedYunScript } = event.data;
-        // const { contentWindow: innerWindow } = document.getElementById("box");
-        // if (hasLoadedYunScript) {
-        //   innerWindow.postMessage(
-        //     { userId: 10000, userName: "YOUZANYUN" },
-        //     "http://172.18.213.40:9000"
-        //   );
-        // }
+        const {
+          origin,
+          data: { pageType },
+        } = event;
+        if (event.origin === "http://127.0.0.1:8201") {
+          console.log("收到来自iframe的信息", event);
+          const iframeNode = document.getElementById("box");
+          const innerWindow = iframeNode.contentWindow;
+          const userToken = "这是个token";
+          iframeNode.addEventListener("load", function () {
+            innerWindow.postMessage({ userToken }, "http://127.0.0.1:8201/html/reactAppUse");
+          });
+        }
       }
       window.addEventListener("message", receiveMessageFromIframePage, false);
     </script>
-    <iframe
-      id="box"
-      sandbox="allow-scripts allow-same-origin"
-      src="http://172.18.213.40:9000"
-    ></iframe>
+    <iframe id="box" src="http://127.0.0.1:8201/html/reactAppUse"></iframe>
   </body>
 </html>
