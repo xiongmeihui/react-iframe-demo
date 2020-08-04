@@ -5,11 +5,28 @@ const loadScript = function (src) {
   return script;
 };
 
+const loadCss = function (href) {
+  const css = document.createElement("link");
+  css.setAttribute("rel", "stylesheet");
+  css.setAttribute("type", "text/css");
+  css.href = href;
+  return css;
+};
+
 const loadJsResource = function () {
-  const urlArr = window.resourceUrl ? Object.values(window.resourceUrl) : [];
+  const urlArr = window.jsUrl ? Object.values(window.jsUrl) : [];
   const fragment = document.createDocumentFragment();
   urlArr.forEach((url) => {
     fragment.appendChild(loadScript(url));
+  });
+  return fragment;
+};
+
+const loadCssResource = function () {
+  const urlArr = window.cssUrl ? Object.values(window.cssUrl) : [];
+  const fragment = document.createDocumentFragment();
+  urlArr.forEach((url) => {
+    fragment.appendChild(loadCss(url));
   });
   return fragment;
 };
@@ -19,7 +36,8 @@ const handleMessage = function (event) {
     const { userToken } = event.data;
     window.userToken = userToken;
 
-    document.head.appendChild(loadJsResource());
+    document.head.appendChild(loadCssResource());
+    document.body.appendChild(loadJsResource());
 
     window.removeEventListener("message", handleMessage, false);
   }
