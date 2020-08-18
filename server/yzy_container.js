@@ -32,7 +32,7 @@ const loadCssResource = function () {
 };
 
 const handleMessage = function (event) {
-  if (/.*\.youzan\.com$/.test(event.orgin)) {
+  if (/.*\.youzan\.com$/.test(event.origin)) {
     const { userToken } = event.data;
     window.userToken = userToken;
 
